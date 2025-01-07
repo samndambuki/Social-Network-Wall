@@ -4,15 +4,36 @@
     <form [formGroup]="createAccountForm">
       <mat-form-field appearance="outline">
         <mat-label>Enter your email</mat-label>
+        <mat-error *ngIf="createAccountForm.controls.email.invalid">
+          {{
+            createAccountForm.controls.email.hasError("required")
+              ? "Email is required"
+              : "Please enter a valid email"
+          }}
+        </mat-error>
         <input matInput formControlName="email" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Enter your username</mat-label>
         <input matInput formControlName="username" />
+        <mat-error *ngIf="createAccountForm.controls.username.invalid">
+          {{
+            createAccountForm.controls.username.hasError("required")
+              ? "Username is required"
+              : "username cannot be longer than 10 characters"
+          }}</mat-error
+        >
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Enter your password</mat-label>
         <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="createAccountForm.controls.password.invalid">
+          {{
+            createAccountForm.controls.password.hasError("required")
+              ? "Password is required"
+              : "Password should be at least 6 characters"
+          }}
+        </mat-error>
       </mat-form-field>
     </form>
     <div class="buttons-container">
@@ -23,4 +44,4 @@
   </div>
 </div>
 
-{{ createAccountForm.value | json }}
+<!-- {{ createAccountForm.value | json }} -->

@@ -7,9 +7,11 @@
   color: white;
   padding: 0px;
   box-shadow: 0 8px 6px -6px rgba(153, 153, 153, 0.836);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
+  margin-bottom: 10px;
 }
 
 .branding {

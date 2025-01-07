@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +24,7 @@ import { JsonPipe } from '@angular/common';
     ReactiveFormsModule,
     FormsModule,
     JsonPipe,
+    CommonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

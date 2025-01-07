@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -23,16 +23,14 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     JsonPipe,
+    CommonModule,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css',
 })
 export class CreateAccountComponent {
   createAccountForm = new FormGroup({
-    email: new FormControl('sam@gmail.com', [
-      Validators.required,
-      Validators.email,
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),

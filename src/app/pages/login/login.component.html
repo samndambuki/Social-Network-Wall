@@ -5,10 +5,24 @@
       <mat-form-field appearance="outline">
         <mat-label>Enter your email</mat-label>
         <input matInput formControlName="email" />
+        <mat-error *ngIf="loginForm.controls.email.invalid">
+          {{
+            loginForm.controls.email.hasError("required")
+              ? "Email is required"
+              : "Please enter a valid email"
+          }}
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Enter your password</mat-label>
         <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="loginForm.controls.password.invalid">
+          {{
+            loginForm.controls.password.hasError("required")
+              ? "Password is required"
+              : "Password should be at least 6 characters"
+          }}
+        </mat-error>
       </mat-form-field>
     </form>
     <!-- {{ loginForm.value | json }} -->
