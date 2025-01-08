@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-create-account',
@@ -24,7 +27,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     JsonPipe,
     CommonModule,
+    HttpClientModule
   ],
+  providers:[UserService],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css',
 })
@@ -40,5 +45,23 @@ export class CreateAccountComponent {
       Validators.minLength(6),
     ]),
   });
-  constructor() {}
+  constructor(public userService:UserService) {}
+  // create(){
+  //   this.userService.createUser(this.createAccountForm.value).then((res)=>{
+  //     console.log(res);
+  //   }).catch((err)=>{
+  //     console.log(err);
+  //   });
+  // }
+
+  create(){
+    this.userService.createUser(this.createAccountForm.value).subscribe(
+      (res)=>{
+        console.log(res)
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
 }

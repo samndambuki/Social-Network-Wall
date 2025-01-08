@@ -37,11 +37,10 @@
       </mat-form-field>
     </form>
     <div class="buttons-container">
-      <button mat-raised-button class="login-button">Create Account</button>
+      <button mat-raised-button class="login-button" (click)="create()" [disabled]="createAccountForm.invalid">Create Account</button>
       <p>Or</p>
       <button mat-button routerLink="/login">Login</button>
     </div>
   </div>
 </div>
 
-<!-- {{ createAccountForm.value | json }} -->
