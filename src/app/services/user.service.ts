@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  user:any;
 
   constructor(private http:HttpClient) { }
 
@@ -24,7 +27,25 @@ export class UserService {
   //   })
   // }
 
-  public createUser(dataObj:any){
+  public createUser(dataObj:any):Observable<any>{
     return this.http.post('http://localhost:3000/users',dataObj)
+  }
+
+  // public getUser(email:string){
+  //   return new Promise((resolve,reject)=>{
+  //     // http get request will return an observable we need to subscribe
+  //     this.http.get('http://localhost:3000/users?email='+email)
+  //     //subscribe has two callback functions
+  //    .subscribe(
+  //     //if response - resove the promise
+  //     (res)=>{resolve(res)},
+  //     //if error - reject the promise
+  //     (err)=>{reject(err)}
+  //    )
+  //   })
+  // }
+
+  public getUser(email:string):Observable<any>{
+    return this.http.get('http://localhost:3000/users?email='+email)
   }
 }

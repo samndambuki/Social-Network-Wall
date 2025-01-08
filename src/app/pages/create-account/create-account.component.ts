@@ -10,7 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -27,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     JsonPipe,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers:[UserService],
   templateUrl: './create-account.component.html',
@@ -45,7 +46,7 @@ export class CreateAccountComponent {
       Validators.minLength(6),
     ]),
   });
-  constructor(public userService:UserService) {}
+  constructor(public userService:UserService,private router:Router) {}
   // create(){
   //   this.userService.createUser(this.createAccountForm.value).then((res)=>{
   //     console.log(res);
@@ -58,6 +59,8 @@ export class CreateAccountComponent {
     this.userService.createUser(this.createAccountForm.value).subscribe(
       (res)=>{
         console.log(res)
+        this.userService.user=res;
+        this.router.navigate(['/posts']);
       },
       (err)=>{
         console.log(err)
