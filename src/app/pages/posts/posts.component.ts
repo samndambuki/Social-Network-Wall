@@ -3,11 +3,17 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCardModule} from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [CommonModule,RouterModule,HttpClientModule],
+  imports: [CommonModule,RouterModule,HttpClientModule,MatCardModule,MatFormFieldModule,CommonModule,MatIconModule,ReactiveFormsModule,MatButtonModule,MatInputModule],
   providers:[UserService],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css'
