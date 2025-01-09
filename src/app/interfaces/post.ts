@@ -1,7 +1,7 @@
 export interface Post{
-    username:'';
-    imageUrl:'';
-    text:'';
-    likes:[];
-    comment:[{username:'',comment:''}]
+    username:string;
+    imageUrl:string;
+    text:string;
+    likes:string[];
+    comment:Array<{username:string,comment:string}>;
 }
