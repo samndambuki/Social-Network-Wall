@@ -47,6 +47,7 @@ export class CreateAccountComponent {
     ]),
   });
   constructor(public userService:UserService,private router:Router) {}
+  
   // create(){
   //   this.userService.createUser(this.createAccountForm.value).then((res)=>{
   //     console.log(res);
@@ -60,6 +61,7 @@ export class CreateAccountComponent {
       (res)=>{
         console.log(res)
         this.userService.user=res;
+        localStorage.setItem('user',JSON.stringify(res));
         this.router.navigate(['/posts']);
       },
       (err)=>{

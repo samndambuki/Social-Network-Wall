@@ -81,6 +81,7 @@ login() {
         if (res[0].password === this.loginForm.value.password) {
           this.snackBar.open('Login successful', 'OK', { duration: 2000 });
           this.userService.user = res[0];
+          localStorage.setItem('user',JSON.stringify(res[0]));
           this.router.navigate(['/posts']);
         } else {
           this.snackBar.open('Incorrect password', 'OK', { duration: 2000 });

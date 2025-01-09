@@ -18,6 +18,7 @@ export class TopbarComponent {
   constructor(public userService:UserService,private router:Router){}
   logout(){
     this.userService.user = undefined;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
