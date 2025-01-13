@@ -6,17 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
-import {
-  Storage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  StorageModule,
-} from '@angular/fire/storage';
+import { PostService } from '../../services/post.service';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-posts',
@@ -33,17 +28,21 @@ import {
     MatButtonModule,
     MatInputModule,
     MaterialFileInputModule,
-    StorageModule,
+    CommonModule,
+    FormsModule,
   ],
-  providers: [UserService],
+  providers: [UserService, PostService, SupabaseService],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })
 export class PostsComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
-  private storage = inject(Storage);
-  constructor() {}
+  public postService = inject(PostService);
+  public supabaseService = inject(SupabaseService);
+  constructor() {
+    this.testSupabase();
+  }
   ngOnInit() {
     if (this.userService.user == undefined || this.userService.user == null) {
       let str = localStorage.getItem('user');
@@ -55,37 +54,47 @@ export class PostsComponent implements OnInit {
     }
   }
   selectedFile: any;
+  text = '';
+  posts: Array<any> = [];
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
-  uploadImage() {
-    return new Promise((resolve, reject) => {
-      let n = Date.now();
-      const file = this.selectedFile;
-      const filePath = `images/${n}`;
-      const storageRef = ref(this.storage, filePath);
-      uploadBytes(storageRef, file)
-        .then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
-            resolve(url);
-          });
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
 
-  post() {
-    if (this.selectedFile != undefined || this.selectedFile != null) {
-      this.uploadImage()
-        .then((imageURL) => {
-          console.log(imageURL);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  //post supabase
+  async post() {
+    try {
+      let imageUrl = '';
+      if (this.selectedFile) {
+        imageUrl = await this.supabaseService.uploadImage(this.selectedFile);
+      }
+
+      const postObj = {
+        username: this.userService.user.username,
+        text: this.text,
+        imageUrl,
+        likes: [],
+        comments: [],
+      };
+
+      this.posts.push(postObj);
+      this.postService.saveNewPost(postObj).subscribe({
+        next: (res) => {
+          console.log('Post created successfully:', res);
+          this.text = '';
+          this.selectedFile = null;
+        },
+        error: (err) => {
+          console.error('Error creating post:', err);
+          this.posts.pop();
+        },
+      });
+    } catch (error) {
+      console.error('Error in post creation:', error);
     }
+  }
+  async testSupabase() {
+    const isConnected = await this.supabaseService.testConnection();
+    console.log('Supabase connection status:', isConnected);
   }
 }

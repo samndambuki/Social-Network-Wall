@@ -1,12 +1,6 @@
-export const environment={
-    production:false,
-    firebaseConfig: {
-        apiKey: "AIzaSyBxbapTjlzUnpsBBJwjMxZW5EPxBJWaByA",
-        authDomain: "nexus-39f06.firebaseapp.com",
-        projectId: "nexus-39f06",
-        storageBucket: "nexus-39f06.firebasestorage.app",
-        messagingSenderId: "25213659345",
-        appId: "1:25213659345:web:8f31fed41b2975561b3df0",
-        measurementId: "G-6VD89MBWDG"
-      }
-}
+export const environment = {
+  production: false,
+  supabaseUrl: 'https://xsbkpnyfysfdylghrziz.supabase.co',
+  supabaseKey:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzYmtwbnlmeXNmZHlsZ2hyeml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3ODUzNjQsImV4cCI6MjA1MjM2MTM2NH0.FnJ4UzN9eaMuMiUBkiRqLoWy3P7iJbKweMgfA6DYoyw',
+};
