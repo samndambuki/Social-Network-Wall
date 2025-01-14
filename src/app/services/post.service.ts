@@ -11,4 +11,7 @@ export class PostService {
   saveNewPost(postObj: any): Observable<any> {
     return this.http.post('http://localhost:3000/posts', postObj);
   }
+  gettAllPosts(): Observable<any> {
+    return this.http.get('http://localhost:3000/posts');
+  }
 }

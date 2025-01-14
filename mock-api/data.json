@@ -46,6 +46,14 @@
       "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736840991747_images.png",
       "likes": [],
       "comments": []
+    },
+    {
+      "id": "545b",
+      "username": "sam",
+      "text": "i am me ",
+      "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736841945238_images.png",
+      "likes": [],
+      "comments": []
     }
   ]
 }

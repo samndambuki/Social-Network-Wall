@@ -52,6 +52,14 @@ export class PostsComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     }
+    this.postService.gettAllPosts().subscribe({
+      next: (res) => {
+        this.posts = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
   selectedFile: any;
   text = '';
