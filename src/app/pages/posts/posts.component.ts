@@ -36,7 +36,7 @@ import { SupabaseService } from '../../services/supabase.service';
   styleUrl: './posts.component.css',
 })
 export class PostsComponent implements OnInit {
-  private userService = inject(UserService);
+  public userService = inject(UserService);
   private router = inject(Router);
   public postService = inject(PostService);
   public supabaseService = inject(SupabaseService);
@@ -104,5 +104,28 @@ export class PostsComponent implements OnInit {
   async testSupabase() {
     const isConnected = await this.supabaseService.testConnection();
     console.log('Supabase connection status:', isConnected);
+  }
+
+  like(postId: any) {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i].id == postId) {
+        if (this.posts[i].likes.indexOf(this.userService.user.id) >= 0) {
+          this.posts[i].likes.splice(
+            this.posts[i].likes.indexOf(this.userService.user.id),
+            1
+          );
+        } else {
+          this.posts[i].likes.push(this.userService.user.id);
+        }
+        this.postService.updateLikes(this.posts[i]).subscribe({
+          next: (res) => {
+            console.log('Post updated successfully:', res);
+          },
+          error: (err) => {
+            console.error('Error updating post:', err);
+          },
+        });
+      }
+    }
   }
 }

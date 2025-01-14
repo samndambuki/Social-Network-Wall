@@ -14,4 +14,7 @@ export class PostService {
   gettAllPosts(): Observable<any> {
     return this.http.get('http://localhost:3000/posts');
   }
+  updateLikes(postObj: any): Observable<any> {
+    return this.http.put('http://localhost:3000/posts/' + postObj.id, postObj);
+  }
 }

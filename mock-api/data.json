@@ -52,6 +52,16 @@
       "username": "sam",
       "text": "i am me ",
       "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736841945238_images.png",
+      "likes": [
+        "ec56"
+      ],
+      "comments": []
+    },
+    {
+      "id": "c758",
+      "username": "sam",
+      "text": "ji guys",
+      "imageUrl": "",
       "likes": [],
       "comments": []
     }
