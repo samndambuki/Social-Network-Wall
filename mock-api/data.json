@@ -63,6 +63,19 @@
       "text": "ji guys",
       "imageUrl": "",
       "likes": [],
+      "comments": [
+        {
+          "username": "sam",
+          "comment": "my first comment"
+        }
+      ]
+    },
+    {
+      "id": "cf3d",
+      "username": "sam",
+      "text": "new post",
+      "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736847524307_images.png",
+      "likes": [],
       "comments": []
     }
   ]

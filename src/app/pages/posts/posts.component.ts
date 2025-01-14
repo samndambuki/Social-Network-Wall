@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { PostService } from '../../services/post.service';
 import { SupabaseService } from '../../services/supabase.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-posts',
@@ -30,6 +31,7 @@ import { SupabaseService } from '../../services/supabase.service';
     MaterialFileInputModule,
     CommonModule,
     FormsModule,
+    MatSnackBarModule,
   ],
   providers: [UserService, PostService, SupabaseService],
   templateUrl: './posts.component.html',
@@ -40,6 +42,8 @@ export class PostsComponent implements OnInit {
   private router = inject(Router);
   public postService = inject(PostService);
   public supabaseService = inject(SupabaseService);
+  public snackBar = inject(MatSnackBar);
+
   constructor() {
     this.testSupabase();
   }
@@ -55,6 +59,9 @@ export class PostsComponent implements OnInit {
     this.postService.gettAllPosts().subscribe({
       next: (res) => {
         this.posts = res;
+        for (let post of this.posts) {
+          this.commentText.push('');
+        }
       },
       error: (err) => {
         console.log(err);
@@ -64,6 +71,7 @@ export class PostsComponent implements OnInit {
   selectedFile: any;
   text = '';
   posts: Array<any> = [];
+  commentText: Array<string> = [];
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -71,6 +79,7 @@ export class PostsComponent implements OnInit {
 
   //post supabase
   async post() {
+    this.snackBar.open('Creating the post', '', { duration: 15000 });
     try {
       let imageUrl = '';
       if (this.selectedFile) {
@@ -91,6 +100,7 @@ export class PostsComponent implements OnInit {
           console.log('Post created successfully:', res);
           this.text = '';
           this.selectedFile = null;
+          this.snackBar.open('Posted successfully', 'ok');
         },
         error: (err) => {
           console.error('Error creating post:', err);
@@ -123,6 +133,27 @@ export class PostsComponent implements OnInit {
           },
           error: (err) => {
             console.error('Error updating post:', err);
+          },
+        });
+      }
+    }
+  }
+
+  comment(postId: any, commentIndex: any) {
+    for (let i = 0; i < this.posts.length; i++) {
+      if (this.posts[i].id == postId) {
+        let commentObj = {
+          username: this.userService.user.username,
+          comment: this.commentText[commentIndex],
+        };
+        this.posts[i].comments.push(commentObj);
+        this.commentText[commentIndex] = '';
+        this.postService.updateComments(this.posts[i]).subscribe({
+          next: (res) => {
+            console.log('comment updated successfully:');
+          },
+          error: (err) => {
+            console.error('Error updating comment:', err);
           },
         });
       }
