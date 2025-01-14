@@ -12,7 +12,9 @@
       "id": "ff91",
       "username": "sam",
       "text": "hello world",
-      "likes": [],
+      "likes": [
+        "ec56"
+      ],
       "comments": []
     },
     {
@@ -20,7 +22,9 @@
       "username": "sam",
       "text": "hello world",
       "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736840128420_images.png",
-      "likes": [],
+      "likes": [
+        "ec56"
+      ],
       "comments": []
     },
     {
@@ -76,6 +80,26 @@
       "text": "new post",
       "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736847524307_images.png",
       "likes": [],
+      "comments": []
+    },
+    {
+      "id": "ea9c",
+      "username": "sam",
+      "text": "i love linkedin",
+      "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736861492057_images.png",
+      "likes": [
+        "ec56"
+      ],
+      "comments": []
+    },
+    {
+      "id": "2d4d",
+      "username": "sam",
+      "text": "i love whatsapp",
+      "imageUrl": "https://xsbkpnyfysfdylghrziz.supabase.co/storage/v1/object/public/images/1736861702611_images.png",
+      "likes": [
+        "ec56"
+      ],
       "comments": []
     }
   ]
