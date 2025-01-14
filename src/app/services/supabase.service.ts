@@ -15,19 +15,50 @@ export class SupabaseService {
     );
   }
 
+  // async uploadImage(file: File): Promise<string> {
+  //   const filename = `${Date.now()}_${file.name}`;
+  //   const { data, error } = await this.supabase.storage
+  //     .from('images')
+  //     .upload(filename, file);
+
+  //   if (error) throw error;
+
+  //   const {
+  //     data: { publicUrl },
+  //   } = this.supabase.storage.from('images').getPublicUrl(filename);
+  //   return publicUrl;
+  // }
+
   async uploadImage(file: File): Promise<string> {
-    const filename = `${Date.now()}_${file.name}`;
-    const { data, error } = await this.supabase.storage
-      .from('images')
-      .upload(filename, file);
+    try {
+      // Generate unique filename
+      const filename = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
 
-    if (error) throw error;
+      // Upload file
+      const { data, error } = await this.supabase.storage
+        .from('images')
+        .upload(filename, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
 
-    const {
-      data: { publicUrl },
-    } = this.supabase.storage.from('images').getPublicUrl(filename);
-    return publicUrl;
+      if (error) {
+        console.error('Upload error:', error);
+        throw new Error(`Upload failed: ${error.message}`);
+      }
+
+      // Get public URL
+      const {
+        data: { publicUrl },
+      } = this.supabase.storage.from('images').getPublicUrl(filename);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      throw error;
+    }
   }
+
   async testConnection() {
     try {
       const { data, error } = await this.supabase
